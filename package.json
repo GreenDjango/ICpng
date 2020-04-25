@@ -1,10 +1,13 @@
 {
-  "name": "myname",
-  "version": "1.0.0",
-  "description": "myname project",
+  "name": "icpng",
+  "version": "0.1.0",
+  "description": "image converter",
   "main": "build/index.js",
   "engines": {
     "node": ">=6"
+  },
+  "bin": {
+    "ICpng": "build/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
