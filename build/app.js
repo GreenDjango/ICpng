@@ -87,7 +87,8 @@ function txt_to_png(path_in, path_out) {
         return;
     const newfile = new pngjs_1.PNG({ width, height });
     data.forEach((value) => {
-        const idx = (newfile.height * (newfile.height - value.y - 1) + (newfile.width - value.x - 1)) << 2;
+        //const idx = (newfile.height * (newfile.height - value.y - 1) + (newfile.width - value.x - 1)) << 2
+        const idx = (newfile.height * value.y + value.x) << 2;
         newfile.data[idx] = value.r;
         newfile.data[idx + 1] = value.g;
         newfile.data[idx + 2] = value.b;
