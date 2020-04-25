@@ -1,5 +1,5 @@
 #ICpng
-Image compressor png->txt and txt->png.
+Image converter png->txt and txt->png.
 
 ## Install & Setup
 
