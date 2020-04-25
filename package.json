@@ -1,0 +1,24 @@
+{
+  "name": "myname",
+  "version": "1.0.0",
+  "description": "myname project",
+  "main": "build/index.js",
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint --project tsconfig.json",
+    "build": "tsc; chmod a+x build/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/pngjs": "^3.4.2",
+    "tslint": "^6.1.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "pngjs": "^5.0.0"
+  }
+}
