@@ -1,4 +1,4 @@
-#ICpng
+# ICpng
 Image converter png->txt and txt->png.
 
 ## Install & Setup
