@@ -39,47 +39,37 @@ function png_to_txt(path_in: string, path_out?: string) {
 }
 
 function txt_to_png(path_in: string, path_out?: string) {
-	const reg1 = RegExp('\\(\\d+,\\d+\\) \\(\\d+,\\d+,\\d+\\)')
-	const reg2 = RegExp('\\(\\d+,\\d+,\\d+\\)')
-	const reg3 = new RegExp('(\\d+)', 'g')
+	const pattern1Regex = /\((\d+),(\d+)\) \((\d+),(\d+),(\d+)\)/
 	const file = fs.readFileSync(path_in, 'utf8')
 	const lines = file.split('\n')
 	const data: { x: number; y: number; r: number; g: number; b: number }[] = []
-	const color: { r: number; g: number; b: number } = { r: 0, g: 0, b: 0 }
 	let width = -1
 	let height = -1
 
-	lines.forEach((line) => {
-		const nb: string[] = []
-		let tmp = reg3.exec(line)
-		while (tmp) {
-			nb.push(tmp[0])
-			tmp = reg3.exec(line)
-		}
-		if (reg1.test(line) && nb) {
-			data.push({ x: +nb[1], y: +nb[0], r: color.r, g: color.g, b: color.b })
-			if (width < +nb[1]) width = +nb[1]
-			if (height < +nb[0]) height = +nb[0]
-		} else if (reg2.test(line) && nb) {
-			color.r = +nb[0]
-			color.g = +nb[1]
-			color.b = +nb[2]
-		}
-	})
+	for (const line of lines) {
+		if (!pattern1Regex.test(line)) continue
+
+		const [_, y, x, r, g, b] = pattern1Regex.exec(line)!
+		data.push({ x: +x, y: +y, r: +r, g: +g, b: +b })
+		if (width < +x) width = +x
+		if (height < +y) height = +y
+	}
+
+	console.log(data)
 
 	width += 1
 	height += 1
 	if (data.length === 0 || width <= 0 || height <= 0) return
 	const newfile = new PNG({ width, height })
 
-	data.forEach((value) => {
+	for (const value of data) {
 		//const idx = (newfile.width * (newfile.height - value.y - 1) + (newfile.width - value.x - 1)) << 2
 		const idx = (newfile.width * value.y + value.x) << 2
 		newfile.data[idx] = value.r
 		newfile.data[idx + 1] = value.g
 		newfile.data[idx + 2] = value.b
 		newfile.data[idx + 3] = 0xff
-	})
+	}
 
 	const buffer = PNG.sync.write(newfile)
 	fs.writeFileSync(path_out || 'out.png', buffer)
