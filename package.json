@@ -4,24 +4,31 @@
   "description": "image converter",
   "main": "build/index.js",
   "engines": {
-    "node": ">=10.13.0"
+    "node": ">=14.0"
   },
   "bin": {
     "ICpng": "build/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "tslint --project tsconfig.json",
+    "lint": "tsc --noEmit",
     "build": "tsc; chmod a+x build/index.js"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@types/pngjs": "^6.0.1",
-    "tslint": "^6.1.3",
-    "typescript": "^3.8.3"
-  },
   "dependencies": {
     "pngjs": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "@types/pngjs": "^6.0.4",
+    "typescript": "^5.3.3"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "useTabs": true,
+    "printWidth": 100
   }
 }
